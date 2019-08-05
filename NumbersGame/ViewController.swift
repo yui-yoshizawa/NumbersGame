@@ -37,7 +37,8 @@ class ViewController: UIViewController {
     }
     
     // 入力制限。 Int のみ入力可。
-    // コピペした。意味は不明。
+    // コピペした。意味は不明。とりあえずこれで。
+    // Int 以外を入れると壊れるんだけど。まじおこ。
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let currentString = textField.text, let _range = Range(range, in: currentString) {
             let newString = currentString.replacingCharacters(in: _range, with: string)
@@ -57,7 +58,7 @@ class ViewController: UIViewController {
     
     
     
-    // 【決定ボタン押した後の処理】をここに書く？
+    // 【決定ボタン押した後の処理】をここに書くよ。
     // 回答をチェックする関数
     func checkAnswer() {
         
@@ -65,20 +66,28 @@ class ViewController: UIViewController {
         numLabel.text = numTextField.text
         
         // 2. TextField内の数値をInt型で取り出す
-        var answerNum = Int(numTextField.text!)!
+        let answerNum = Int(numTextField.text!)!    // Intつけないと、下の if answerNum < correctNum { で怒られる。var だと警告がでる。
         
         // 3. 正解と照らし合わせて「上か下か」判別がつくメッセージを表示させる
         if answerNum < correctNum {
             // 3-1. 正解よりも低い場合
             // アラートを表示させたい → アラート関数を下に作ってくる！
             showAlert(message: "答えは\(answerNum)より高い値です。")    // 処理これだけで良いっけ？
-            
+            // return    // ノリで return してみた。
             
             
         } else if answerNum > correctNum {
             // 3-2. 正解よりも高い場合
-        } else if == answerNum == correctNum {
+            showAlert(message: "答えは\(answerNum)より低い値です。")
+            
+            
+            
+        } else if answerNum == correctNum {
             // 3-3. 正解と一致した場合
+            return
+            
+            
+            
         } else {
             // エラーをわかりやすくする
             print("エラー")
@@ -97,8 +106,8 @@ class ViewController: UIViewController {
     
     
     
-    // 【アラート】を表示する関数
-    // コピペした。理解はしていない。後で確認。
+    //【アラート】について。
+    // コピペした。あまり理解していない。後で確認。
     // よくわかんないけど 「(message: String)の内容をそのままアラートに表示させる」 って言ってるみたい。
     // だから、 showAlert(message: "表示させたい内容") でおけ。
     // 上の checkAnswer の中で使うよ〜

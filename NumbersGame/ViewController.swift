@@ -22,13 +22,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultTextView: UITextView!
     
     
+    // 施行数
+    var answerCount: Int = 0
+    
   
    
     
     
-    // 最初の値を??にしたいよー
-    
     // ---------------------------------------------------------------------------------------------------
+    // 【済】数値を入力して決定を行なったあと、答えの数と照らし合わせて「上か下か」判別がつくメッセージを表示させる。
+    // 【済】答えを当てた場合、再度ランダムな数値が割り当てられて継続して遊べること。
+    // 入力内容のバリデーション（入力値チェック）を行う。（1〜100以外の入力をエラーとする）
+    // 遊んだ履歴を「UITextView」を用いて表示する。
+    
+    
     
     
     // Storyboardの情報を読み込み終わった後に呼ばれるやつ
@@ -36,7 +43,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    // 入力制限。 Int のみ入力可。
+    // 【TextField の入力制限】について。 Int のみ入力可。
     // コピペした。意味は不明。とりあえずこれで。
     // Int 以外を入れると壊れるんだけど。まじおこ。
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -54,7 +61,7 @@ class ViewController: UIViewController {
     
     // ここ【正解】のエリアね。
     // 正解の数字を 1~100 の中からランダムに生成
-    let correctNum = Int.random(in: 1...100)    // 最初場所わかんなくていろいろ試したけど、ここで良いっぽい。多分。理解した。
+    var correctNum = Int.random(in: 1...100)    // 最初場所わかんなくていろいろ試したけど、ここで良いっぽい。多分。理解した。
     
     
     
@@ -71,21 +78,25 @@ class ViewController: UIViewController {
         // 3. 正解と照らし合わせて「上か下か」判別がつくメッセージを表示させる
         if answerNum < correctNum {
             // 3-1. 正解よりも低い場合
-            // アラートを表示させたい → アラート関数を下に作ってくる！
-            showAlert(message: "答えは\(answerNum)より高い値です。")    // 処理これだけで良いっけ？
-            // return    // ノリで return してみた。
+            answerCount += 1    // 施行数を1増やす
+            showAlert(message: "答えは\(answerNum)より高い値です。")    // アラートを表示させたい → アラートの関数を下に作ってきた！
             
             
         } else if answerNum > correctNum {
             // 3-2. 正解よりも高い場合
+            answerCount += 1
             showAlert(message: "答えは\(answerNum)より低い値です。")
-            
             
             
         } else if answerNum == correctNum {
             // 3-3. 正解と一致した場合
-            return
+            answerCount += 1    // 施行数を1増やす
+            showAlert(message: "\(answerCount)回目に正解しました！ 数字をリセットしました！")    // アラート表示
             
+            // リセットしていくよ〜
+            answerCount = 0
+            correctNum = Int.random(in: 1...100)    // できたああああああああああああ！！！！！
+                                                    // correctNum を定数にしていたのが原因でエラーがでていた。変数にして解決。
             
             
         } else {
@@ -93,20 +104,11 @@ class ViewController: UIViewController {
             print("エラー")
             return
         }
-        
-        
-        
-        
     }
-    // 数値を入力して決定を行なったあと、答えの数と照らし合わせて「上か下か」判別がつくメッセージを表示させる。
-    // 答えを当てた場合、再度ランダムな数値が割り当てられて継続して遊べること。
-    // 入力内容のバリデーション（入力値チェック）を行う。（1〜100以外の入力をエラーとする）
-    // 遊んだ履歴を「UITextView」を用いて表示する。
     
     
     
-    
-    //【アラート】について。
+    //【アラート】について書くよ。
     // コピペした。あまり理解していない。後で確認。
     // よくわかんないけど 「(message: String)の内容をそのままアラートに表示させる」 って言ってるみたい。
     // だから、 showAlert(message: "表示させたい内容") でおけ。
@@ -125,17 +127,11 @@ class ViewController: UIViewController {
     
     
     
-    
-    
     // Action 紐付け
     // 決定ボタンが押された時
     @IBAction func resultButton(_ sender: Any) {    // 最初ここに色々処理書こうとしたけど上に関数作るっぽい。そのほうがイケてるからかな？
         checkAnswer()    // checkAnswer 発動！ 上に checkAnswer関数作るよ〜
-        
-        
     }
-    
-
 }
 
 

@@ -39,6 +39,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMp-m7-bDP">
                                 <rect key="frame" x="191.5" y="242" width="31" height="30"/>
                                 <state key="normal" title="決定"/>
+                                <connections>
+                                    <action selector="resultButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mqa-SE-QQc"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CvH-7f-wl5">
                                 <rect key="frame" x="0.0" y="302" width="414" height="560"/>
@@ -67,10 +70,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="numLabel" destination="anb-Ie-NN4" id="WQG-3e-tGb"/>
+                        <outlet property="numTextField" destination="5CU-6U-3ud" id="2Ae-4x-5TE"/>
+                        <outlet property="resultButton" destination="WMp-m7-bDP" id="ZJM-Pq-2PJ"/>
+                        <outlet property="resultTextView" destination="CvH-7f-wl5" id="6ks-v2-af6"/>
+                        <outlet property="titleLabel" destination="EBt-1A-eFS" id="gG4-oQ-ONa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="468" y="55"/>
+            <point key="canvasLocation" x="119" y="40"/>
         </scene>
     </scenes>
 </document>

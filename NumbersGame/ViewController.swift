@@ -17,10 +17,10 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var numTextField: UITextField!
     
-    @IBOutlet weak var resultButton: UIButton!    // 必要？
+    @IBOutlet weak var resultButton: UIButton!    // 消したら怒られた。
     
     @IBOutlet weak var resultTextView: UITextView!
-    
+  
     
     // 施行数
     var answerCount: Int = 0
@@ -33,12 +33,12 @@ class ViewController: UIViewController {
     // 【済】数値を入力して決定を行なったあと、答えの数と照らし合わせて「上か下か」判別がつくメッセージを表示させる。
     // 【済】答えを当てた場合、再度ランダムな数値が割り当てられて継続して遊べること。
     // 入力内容のバリデーション（入力値チェック）を行う。（1〜100以外の入力をエラーとする）
-    // 遊んだ履歴を「UITextView」を用いて表示する。
+    // 【済】遊んだ履歴を「UITextView」を用いて表示する。
     
     
     
     
-    // Storyboardの情報を読み込み終わった後に呼ばれるやつ
+    // Storyboard の情報を読み込み終わった後に呼ばれるやつ
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -80,18 +80,21 @@ class ViewController: UIViewController {
             // 3-1. 正解よりも低い場合
             answerCount += 1    // 施行数を1増やす
             showAlert(message: "答えは\(answerNum)より高い値です。")    // アラートを表示させたい → アラートの関数を下に作ってきた！
+            resultTextView.text = resultTextView.text + "\n[\(answerCount)回目] 答えは\(answerNum)より高い値です。"    // \n (改行)を "" の外に書いたら怒られた。
             
             
         } else if answerNum > correctNum {
             // 3-2. 正解よりも高い場合
             answerCount += 1
             showAlert(message: "答えは\(answerNum)より低い値です。")
+            resultTextView.text = resultTextView.text + "\n[\(answerCount)回目] 答えは\(answerNum)より低い値です。"
             
             
         } else if answerNum == correctNum {
             // 3-3. 正解と一致した場合
-            answerCount += 1    // 施行数を1増やす
-            showAlert(message: "\(answerCount)回目に正解しました！ 数字をリセットしました！")    // アラート表示
+            answerCount += 1
+            showAlert(message: "\(answerCount)回目に正解しました！\n数字をリセットしました！")    // \n で改行
+            resultTextView.text = resultTextView.text + "\n[正解] 答えは\(correctNum)でした。"
             
             // リセットしていくよ〜
             answerCount = 0

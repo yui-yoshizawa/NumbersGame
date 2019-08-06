@@ -28,11 +28,10 @@ class ViewController: UIViewController {
   
    
     
-    
     // ---------------------------------------------------------------------------------------------------
     // 【済】数値を入力して決定を行なったあと、答えの数と照らし合わせて「上か下か」判別がつくメッセージを表示させる。
     // 【済】答えを当てた場合、再度ランダムな数値が割り当てられて継続して遊べること。
-    // 入力内容のバリデーション（入力値チェック）を行う。（1〜100以外の入力をエラーとする）
+    // 【済】入力内容のバリデーション（入力値チェック）を行う。（1〜100以外の入力をエラーとする）
     // 【済】遊んだ履歴を「UITextView」を用いて表示する。
     
     
@@ -42,19 +41,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    // 【TextField の入力制限】について。 Int のみ入力可。
-    // コピペした。意味は不明。とりあえずこれで。
-    // Int 以外を入れると壊れるんだけど。まじおこ。
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if let currentString = textField.text, let _range = Range(range, in: currentString) {
-            let newString = currentString.replacingCharacters(in: _range, with: string)
-            return Int(newString) != nil
-        } else {
-            return false
-        }
-    }
-
     
     
     // この辺から関数とか書き始めればいいんじゃないかなぁ
@@ -69,18 +55,33 @@ class ViewController: UIViewController {
     // 回答をチェックする関数
     func checkAnswer() {
         
-        // 1. ラベルを入力したテキストに変更する
+        // 1. TextField内の数値をInt型で取り出し、入力内容をチェック
+        // 1-1. TextField内の数値をInt型で取り出す
+        let answerNum = Int(numTextField.text!)!    // Intつけないと、下の if answerNum < correctNum { で怒られる。var だと警告がでる。
+        
+        // 1-2. 入力内容をチェック 1~100以外の入力をエラーとする
+        if answerNum >= 1 && answerNum <= 100 {
+        } else {
+            // 1~100以外の時
+            errorAlert()    // エラー時のアラート呼出し
+            numTextField.text = ""    // 入力文字リセット。残ってたらうざいから。
+            return    // これがないと下の処理もしてしまう。例えば、[n回目] 答えは〜 っていうメッセージとか出てきちゃう。
+        }
+        
+        
+        // 2. ラベルを入力したテキストに変更する
         numLabel.text = numTextField.text
         
-        // 2. TextField内の数値をInt型で取り出す
-        let answerNum = Int(numTextField.text!)!    // Intつけないと、下の if answerNum < correctNum { で怒られる。var だと警告がでる。
+        // numTextField に入力した文字列をリセット。次に入力する時、残ってたらうざいから。
+        numTextField.text = ""
+        
         
         // 3. 正解と照らし合わせて「上か下か」判別がつくメッセージを表示させる
         if answerNum < correctNum {
             // 3-1. 正解よりも低い場合
             answerCount += 1    // 施行数を1増やす
             showAlert(message: "答えは\(answerNum)より高い値です。")    // アラートを表示させたい → アラートの関数を下に作ってきた！
-            resultTextView.text = resultTextView.text + "\n[\(answerCount)回目] 答えは\(answerNum)より高い値です。"    // \n (改行)を "" の外に書いたら怒られた。
+            resultTextView.text = resultTextView.text + "\n[\(answerCount)回目] 答えは\(answerNum)より高い値です。"    // \n を "" の外に書いたら怒られた。
             
             
         } else if answerNum > correctNum {
@@ -97,6 +98,7 @@ class ViewController: UIViewController {
             resultTextView.text = resultTextView.text + "\n[正解] 答えは\(correctNum)でした。"
             
             // リセットしていくよ〜
+            numLabel.text = "??"
             answerCount = 0
             correctNum = Int.random(in: 1...100)    // できたああああああああああああ！！！！！
                                                     // correctNum を定数にしていたのが原因でエラーがでていた。変数にして解決。
@@ -108,6 +110,7 @@ class ViewController: UIViewController {
             return
         }
     }
+    
     
     
     
@@ -128,6 +131,21 @@ class ViewController: UIViewController {
     }
     
     
+    // これはエラーのときのアラート
+    // これ書いてなんとなくアラート理解した。なんとなく。
+    func errorAlert() {
+        // アラートの作成
+        let alert2 = UIAlertController(title: "エラー", message: "「1〜100」の数字を入れてください。", preferredStyle: .alert)
+        // アラートのアクション（ボタン部分の定義）
+        let OK = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        // 作成した alert2 に閉じるボタンを追加
+        alert2.addAction(OK)
+        // アラートを表示する
+        present(alert2, animated: true, completion: nil)
+        
+    }
+    
+    
     
     
     // Action 紐付け
@@ -136,5 +154,3 @@ class ViewController: UIViewController {
         checkAnswer()    // checkAnswer 発動！ 上に checkAnswer関数作るよ〜
     }
 }
-
-

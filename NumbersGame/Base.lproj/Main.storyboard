@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,72 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NumbersGame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数字当てゲーム" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-1A-eFS">
+                                <rect key="frame" x="88.5" y="50" width="143" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="??" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anb-Ie-NN4">
+                                <rect key="frame" x="150" y="104" width="20.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5CU-6U-3ud">
+                                <rect key="frame" x="60" y="158" width="200" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMp-m7-bDP">
+                                <rect key="frame" x="144.5" y="218" width="31" height="30"/>
+                                <state key="normal" title="決定"/>
+                                <connections>
+                                    <action selector="resultButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mqa-SE-QQc"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CvH-7f-wl5">
+                                <rect key="frame" x="0.0" y="278" width="320" height="202"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="WMp-m7-bDP" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="93o-G1-cdR"/>
+                            <constraint firstItem="5CU-6U-3ud" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="60" id="9HN-Vb-3ea"/>
+                            <constraint firstItem="anb-Ie-NN4" firstAttribute="top" secondItem="EBt-1A-eFS" secondAttribute="bottom" constant="30" id="BHJ-bq-XcS"/>
+                            <constraint firstItem="5CU-6U-3ud" firstAttribute="top" secondItem="anb-Ie-NN4" secondAttribute="bottom" constant="30" id="DF5-VR-tzX"/>
+                            <constraint firstItem="EBt-1A-eFS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FTz-WA-3H3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CvH-7f-wl5" secondAttribute="bottom" id="KEC-m1-J0Y"/>
+                            <constraint firstItem="EBt-1A-eFS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="Kef-sW-XJN"/>
+                            <constraint firstItem="anb-Ie-NN4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MxI-Hk-OPX"/>
+                            <constraint firstItem="CvH-7f-wl5" firstAttribute="top" secondItem="WMp-m7-bDP" secondAttribute="bottom" constant="30" id="Ut3-2s-vlP"/>
+                            <constraint firstItem="WMp-m7-bDP" firstAttribute="top" secondItem="5CU-6U-3ud" secondAttribute="bottom" constant="30" id="kxo-p1-Xly"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5CU-6U-3ud" secondAttribute="trailing" constant="60" id="ky1-B4-Rcu"/>
+                            <constraint firstItem="5CU-6U-3ud" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lTO-1G-kZw"/>
+                            <constraint firstItem="CvH-7f-wl5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oDg-tV-MG0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CvH-7f-wl5" secondAttribute="trailing" id="xmv-zv-KRL"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="numLabel" destination="anb-Ie-NN4" id="WQG-3e-tGb"/>
+                        <outlet property="numTextField" destination="5CU-6U-3ud" id="2Ae-4x-5TE"/>
+                        <outlet property="resultTextView" destination="CvH-7f-wl5" id="6ks-v2-af6"/>
+                        <outlet property="titleLabel" destination="EBt-1A-eFS" id="gG4-oQ-ONa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="119" y="40"/>
         </scene>
     </scenes>
 </document>
